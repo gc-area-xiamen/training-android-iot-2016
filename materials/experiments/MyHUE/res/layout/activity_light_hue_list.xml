@@ -1,0 +1,47 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context="org.learn.android.myhue.LightHueListAct" >
+
+    <TextView
+        android:id="@+id/tv_dummy"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y35"
+        android:background="#ff58585c" />
+
+    <include layout="@layout/rl_title_bar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tv_dummy" >
+
+        <TextView
+            android:id="@+id/text_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_hue_list" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/text_main"
+            android:orientation="vertical" >
+
+            <org.learn.android.myhue.view.MultiGridView
+                android:id="@+id/gv_hue_light"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:horizontalSpacing="@dimen/x1"
+                android:listSelector="#00000000"
+                android:numColumns="3"
+                android:paddingLeft="@dimen/x2"
+                android:paddingRight="@dimen/x2"
+                android:paddingTop="@dimen/y2"
+                android:verticalSpacing="@dimen/y2" >
+            </org.learn.android.myhue.view.MultiGridView>
+        </ScrollView>
+    </RelativeLayout>
+
+</RelativeLayout>

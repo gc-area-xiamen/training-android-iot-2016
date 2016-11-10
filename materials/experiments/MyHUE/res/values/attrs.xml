@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <attr name="space" format="dimension" />
+	<attr name="w" format="dimension" />
+	<attr name="btnWidth" format="dimension" />
+	<attr name="screenWidthDenominator" format="integer" />
+    
+    <!-- 声名属性集的名称 -->
+    <declare-styleable name="MyToggleButton">
+        <attr name="current_state" format="boolean"></attr>
+        <attr name="w"></attr>
+        <attr name="h" format="dimension"></attr>
+    </declare-styleable>
+    
+    
+    <declare-styleable name="SlidingView">
+        <attr name="space" />
+        <attr name="w" />
+        <attr name="screenWidthDenominator" />
+        <attr name="btnWidth" />
+    </declare-styleable>
+</resources>
