@@ -51,6 +51,8 @@ public class LightHueListAct extends BaseActivity {
     private static final int    MENUID_UPDATE    = Menu.FIRST + 3;
     private static final int    MENUID_RE_SEARCH = Menu.FIRST + 4;
     private static final int    MENUID_RM_USER   = Menu.FIRST + 5;
+    private static final int    MENUID_SIMU      = Menu.FIRST + 6;
+
 
     private Dialog   dlgSetHueGateway;
     private TextView mText, txtTitle, mOptionMenu;
@@ -160,6 +162,7 @@ public class LightHueListAct extends BaseActivity {
         //getMenuInflater().inflate(R.menu.main, menu);
         if (mHueBridge == null) {
             menu.add(Menu.NONE, MENUID_SEARCH, 2, R.string.action_search);
+            //menu.add(Menu.NONE, MENUID_SIMU, 6, "Simu");
         } else {
             menu.add(Menu.NONE, MENUID_RE_SEARCH, 2, R.string.action_re_search);
             menu.add(Menu.NONE, MENUID_UPDATE, 3, R.string.action_update);
@@ -175,16 +178,19 @@ public class LightHueListAct extends BaseActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         switch (id) {
-        case MENUID_SEARCH:
-        case MENUID_RE_SEARCH:
-            searchBridge();
-            break;
-        case MENUID_UPDATE:
-            updateBridge();
-            break;
-        case MENUID_RM_USER:
-            HueManager.getInstance().removeUser();
-            break;
+            case MENUID_SEARCH:
+            case MENUID_RE_SEARCH:
+                searchBridge();
+                break;
+            case MENUID_UPDATE:
+                updateBridge();
+                break;
+            case MENUID_RM_USER:
+                HueManager.getInstance().removeUser();
+                break;
+            case MENUID_SIMU:
+                simuConnected();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -364,6 +370,18 @@ public class LightHueListAct extends BaseActivity {
         Toast.makeText(LightHueListAct.this, err, Toast.LENGTH_SHORT).show();
     }
 
+    private void simuConnected() {
+        Log.d(TAG, "Simu connected for test.");
+        mHueBridge = new HueBridge("127.0.0.1", 1);
+        mHueBridge.setOnline(true);
+        mLights = new ArrayList<HueLight>();
+        for (int i=1; i<4; i++) {
+            HueLight hl = new HueLight(mHueBridge.getIp(), i, mHueBridge);
+            hl.setAppDevId(HueBridge.APPID_DEV_HUE_LIGHT);
+            mLights.add(hl);
+        }
+        refreshUI();
+    }
     public void onEventMainThread(HueBridgeConnectedEvent evt) {
         tip("Hue bridge connected");
         Log.d(TAG, "Hue Bridge connected.");
@@ -432,28 +450,6 @@ public class LightHueListAct extends BaseActivity {
         }
 
         refreshUI();
-
-        /*
-         * PHGroup phGroup = new PHGroup("group test", "4");
-         * phGroup.setLightIdentifiers(lightIdentifiers);
-         * bridge.createGroup(phGroup, new PHGroupListener() {
-         * 
-         * @Override public void onSuccess() { Log.d(TAG, "PHGroup create OK.");
-         * }
-         * 
-         * @Override public void onStateUpdate(Map<String, String> arg0,
-         * List<PHHueError> arg1) { }
-         * 
-         * @Override public void onError(int arg0, String arg1) { Log.d(TAG,
-         * "PHGroup create error."); }
-         * 
-         * @Override public void onReceivingGroupDetails(PHGroup arg0) { }
-         * 
-         * @Override public void onReceivingAllGroups(List<PHBridgeResource>
-         * arg0) { }
-         * 
-         * @Override public void onCreated(PHGroup arg0) { } });
-         */
     }
 
     public void onEventMainThread(HueAuthRequiredEvent evt) {
@@ -493,6 +489,7 @@ public class LightHueListAct extends BaseActivity {
     private void longClick(HueLight light, int position) {
         Intent intent = new Intent(mContext, LightHueAct.class);
         intent.putExtra("light", light);
+        intent.putExtra("isSimu", (mHueBridge.getIp().equals("127.0.0.1")));
         startActivity(intent);
     }
 

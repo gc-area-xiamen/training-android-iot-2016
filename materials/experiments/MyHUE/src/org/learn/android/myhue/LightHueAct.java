@@ -58,6 +58,7 @@ public class LightHueAct extends BaseActivity implements
 	private int mRangeR, mRangeG, mRangeB;
 	private MyToggleButton toggle;
 	private Dialog mDlgProgress;
+	private boolean mIsSimu=false;
 //	private Handler mHandler = new Handler(new Callback() {
 //
 //		@Override
@@ -133,6 +134,7 @@ public class LightHueAct extends BaseActivity implements
 	@Override
 	protected void initData() {
 		mDevice = (HueLight) getIntent().getSerializableExtra("light");
+		mIsSimu = (Boolean)getIntent().getSerializableExtra("isSimu");
 		if (mDevice.getAppDevId() == HueBridge.APPID_DEV_HUE_GROUP) {
 			ivLightType.setImageResource(R.drawable.ic_light_hue_group);
             tvTitle.setText("灯组");
@@ -162,7 +164,7 @@ public class LightHueAct extends BaseActivity implements
 				// TODO： finish if fail
 				Log.e(TAG, "init " + arg1);
 				Toast.makeText(mContext, "Connect HUE light fail.", Toast.LENGTH_SHORT).show();
-                finish();
+				if (!mIsSimu) finish();
 			}
 
 			@Override
@@ -229,15 +231,15 @@ public class LightHueAct extends BaseActivity implements
 				// HueManager.getInstance().getLightStatus(mDevice.getEndPoint());
 				if (!state) {
 				    Log.d(TAG, "Change to off");
-				    HueManager.getInstance().setLightOn(mDevice, state);
+					if (!mIsSimu) HueManager.getInstance().setLightOn(mDevice, state);
 					sbBrightAdjust.setProgress(0);
 				} else {
 				    Log.d(TAG, "Change to on, bri " + brightness);
 				    if (brightness == 0) {
 				        brightness = 181;
-	                    HueManager.getInstance().setLightBrightness(mDevice, brightness);
+						if (!mIsSimu) HueManager.getInstance().setLightBrightness(mDevice, brightness);
 				    } else {
-				        HueManager.getInstance().setLightOn(mDevice, state);
+						if (!mIsSimu) HueManager.getInstance().setLightOn(mDevice, state);
 				    }
 					sbBrightAdjust.setProgress(brightness);
 				}
@@ -297,7 +299,7 @@ public class LightHueAct extends BaseActivity implements
 //						Log.d(TAG, "g--------->" + g);
 //						Log.d(TAG, "b--------->" + b);
 //						Log.d(TAG, "brightness--------->" + brightness);
-						HueManager.getInstance().setLightRGB(mDevice, r, g, b);
+						if (!mIsSimu) HueManager.getInstance().setLightRGB(mDevice, r, g, b);
 						break;
 				}
 				return true;
@@ -334,7 +336,7 @@ public class LightHueAct extends BaseActivity implements
 		} else {
 			toggle.open();
 		}
-		HueManager.getInstance().setLightBrightness(mDevice, brightness);
+		if (!mIsSimu) HueManager.getInstance().setLightBrightness(mDevice, brightness);
 	}
 
 	private void setColorWidgetLocation() {
