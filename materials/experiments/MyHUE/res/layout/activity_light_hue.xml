@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:mytoggle="http://schemas.android.com/apk/res/org.learn.android.myhue"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_gray2"
+    android:orientation="vertical" >
+
+    <include layout="@layout/rl_title_bar" />
+
+    <RelativeLayout
+        android:id="@+id/rl_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <RelativeLayout
+            android:id="@+id/rl_top"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y80"
+            android:layout_marginLeft="@dimen/x8"
+            android:layout_marginRight="@dimen/x8"
+            android:layout_marginTop="@dimen/y7"
+            android:background="@drawable/bg_light" >
+
+            <ImageView
+                android:id="@+id/iv_light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_light_hue" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/x4"
+                android:layout_toRightOf="@id/iv_light"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tv_room"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/x4"
+                    android:textColor="@color/gray"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <org.learn.android.myhue.view.MyToggleButton
+                android:id="@+id/toggle"
+                android:layout_width="@dimen/x55"
+                android:layout_height="@dimen/y21"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/x12"
+                mytoggle:current_state="true"
+                mytoggle:h="@dimen/y21"
+                mytoggle:w="@dimen/x55" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_adjust_light"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y54"
+            android:layout_below="@id/rl_top"
+            android:layout_marginLeft="@dimen/x8"
+            android:layout_marginRight="@dimen/x8"
+            android:background="@drawable/bg_adjust_light" >
+
+            <ImageView
+                android:id="@+id/iv_brightness"
+                android:layout_width="@dimen/x29"
+                android:layout_height="@dimen/x29"
+                android:scaleType="fitXY"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="@dimen/y15"
+                android:layout_marginLeft="@dimen/x8"
+                android:src="@drawable/ic_brightness" />
+
+            <TextView
+                android:id="@+id/tv_dimming_percent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="50%"
+                android:textSize="14sp" />
+
+            <SeekBar
+                android:id="@+id/sb_brightness_adjust"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/x7"
+                android:layout_toLeftOf="@id/tv_dimming_percent"
+                android:layout_toRightOf="@id/iv_brightness"
+                android:max="254"
+                android:maxHeight="10dp"
+                android:minHeight="10dp"
+                android:progress="50"
+                android:progressDrawable="@drawable/croci_seekbar"
+                android:secondaryProgress="0"
+                android:thumb="@drawable/seekbar_thumb_s"
+                android:thumbOffset="6dp" />
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/iv_color_plate"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/rl_adjust_light"
+            android:layout_marginLeft="@dimen/x8"
+            android:layout_marginRight="@dimen/x8"
+            android:layout_marginTop="@dimen/y7"
+            android:layout_marginBottom="@dimen/y7"
+            android:scaleType="fitXY"
+            android:src="@drawable/bg_color_lump" >
+        </ImageView>
+
+        <ImageView
+            android:id="@+id/iv_float_frame"
+            android:layout_width="@dimen/x43"
+            android:layout_height="@dimen/y35"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_color_choose_float_frame" />
+
+        <ImageView
+            android:id="@+id/iv_color_choose_widget"
+            android:layout_width="@dimen/x15"
+            android:layout_height="@dimen/x15"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_color_choose_widget" />
+    </RelativeLayout>
+
+</LinearLayout>

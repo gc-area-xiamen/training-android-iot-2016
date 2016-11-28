@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MyHUE</string>
+
+    <!--  main menu  -->
+    <!--  hue list  -->
+    <string name="title_hue_list">Hue Lights</string>
+    <string name="action_search">Search</string>
+    <string name="action_update">Update</string>
+    <string name="action_re_search">ReScan</string>
+    <string name="action_exit">Exit</string>
+    <string name="prompt">Prompt</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="hue_gateway_setting">Setting</string>
+
+    <!--  qr code scan -->
+</resources>
